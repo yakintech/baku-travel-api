@@ -1,8 +1,10 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 const placeRouter = require('./router/placeRouter');
+var cors = require('cors')
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded())
@@ -17,6 +19,7 @@ mongoose.connect('mongodb+srv://cagatay:jYjpMvn5WXivq4uh@cluster0.imfaisw.mongod
 
 
 app.use('/api/places', placeRouter);
+
 
 app.listen(8080, () => {
     console.log('Server is runnig..');
