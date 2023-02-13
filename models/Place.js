@@ -8,8 +8,8 @@ const placeSchema = new Schema({
     latitude: String,
     longitude: String,
     mainImage: String,
-    openDate: Date,
-    closeDate: Date,
+    openDate: String,
+    closeDate: String,
     category:String //Museum, Hotels, Restoran
 })
 
