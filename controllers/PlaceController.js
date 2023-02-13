@@ -13,15 +13,15 @@ const placeController = {
         })
 
     },
-    getById: (req,res) => {
+    getById: (req, res) => {
 
         let id = req.params.id;
 
-        placeModel.findById(id, (err,doc) => {
-            if(!err){
+        placeModel.findById(id, (err, doc) => {
+            if (!err) {
                 res.json(doc)
             }
-            else{
+            else {
                 res.status(500).json(err);
             }
 
@@ -48,6 +48,20 @@ const placeController = {
             else
                 res.status(500).json(saveErr)
         })
+    },
+    remove: (req, res) => {
+
+        let id = req.params.id;
+
+        placeModel.findByIdAndDelete(id, (err, doc) => {
+            if(!err){
+                res.json(doc)
+            }
+            else{
+                res.status(500).json(err);
+            }
+        })
+
     }
 }
 
