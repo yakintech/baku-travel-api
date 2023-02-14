@@ -1,4 +1,5 @@
 const { placeModel } = require("../models/Place");
+const { fileUpload } = require("../services/fileService");
 
 const placeController = {
     getAll: (req, res) => {
@@ -28,23 +29,28 @@ const placeController = {
         })
 
     },
-    add: (req, res) => {
+    add: async (req, res) => {
+        console.log(req.body);
+        console.log(req.files);
 
+        const files = req.files;
+        const body = req.body;
+        const mainImageUrl = await fileUpload([files.mainImg]);
+        const imagesUrl = await fileUpload(files.images);
         let place = new placeModel({
-            name: req.body.name,
-            description: req.body.description,
-            images: req.body.images,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-            mainImage: req.body.mainImage,
-            openDate: req.body.openDate,
-            closeDate: req.body.closeDate,
-            category: req.body.category,
+            name: body.name,
+            description: body.description,
+            images: imagesUrl,
+            latitude: body.latitude,
+            longitude: body.longitude,
+            mainImage: mainImageUrl[0],
+            openDate: body.openDate,
+            closeDate: body.closeDate,
+            category: body.category,
         });
-
         place.save((saveErr, doc) => {
             if (!saveErr)
-                res.json(doc)
+                return res.json(doc)
             else
                 res.status(500).json(saveErr)
         })
@@ -54,10 +60,10 @@ const placeController = {
         let id = req.params.id;
 
         placeModel.findByIdAndDelete(id, (err, doc) => {
-            if(!err){
+            if (!err) {
                 res.json(doc)
             }
-            else{
+            else {
                 res.status(500).json(err);
             }
         })
