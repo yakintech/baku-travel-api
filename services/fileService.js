@@ -8,8 +8,8 @@ const containerClient = blobServiceClient.getContainerClient(containerName);
 const fileUpload = async (files) => {
     let result = [];
     for (let i = 0; i < files.length; i++) {
-        let fileName = new Date().toLocaleString().replace(' ','') + new Date().getMilliseconds() + files[i].name;
-        const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+        let fileName = new Date().getTime()+"_" + files[i].name;
+        const blockBlobClient = containerClient.getBlockBlobClient(fileName.replace(" ",""));
         result.push(`https://rmad101codeacademy.blob.core.windows.net/${containerName}/${fileName}`)   
         const uploadBlobResponse = await blockBlobClient.upload(files[i].data, files[i].size);
     }
