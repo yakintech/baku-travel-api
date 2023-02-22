@@ -1,6 +1,7 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 const placeRouter = require('./router/placeRouter');
+const categoryRouter = require('./router/CategoryRouter');
 var cors = require('cors')
 const fileUpload = require('express-fileupload')
 
@@ -22,6 +23,7 @@ mongoose.connect('mongodb+srv://cagatay:jYjpMvn5WXivq4uh@cluster0.imfaisw.mongod
 
 
 app.use('/api/places', placeRouter);
+app.use('/api/categories', categoryRouter);
 
 
 app.listen(8080, () => {
