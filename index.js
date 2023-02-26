@@ -29,4 +29,3 @@ app.use('/api/categories', categoryRouter);
 app.listen(8080, () => {
     console.log('Server is runnig..');
 });
-server.setTimeout(120000);
