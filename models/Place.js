@@ -3,15 +3,15 @@ const { Schema } = mongoose;
 
 const placeSchema = new Schema({
     name: String,
-    description:String,
-    images:[],
+    description: String,
+    images: [],
     latitude: String,
     longitude: String,
     mainImage: String,
     openDate: String,
     closeDate: String,
-    category:String //Museum, Hotels, Restoran
-})
+    category: { type: Schema.Types.ObjectId, ref: 'category' } // reference to the category model
+});
 
 
 const placeModel = mongoose.model('place', placeSchema);
