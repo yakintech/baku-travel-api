@@ -9,5 +9,4 @@ router.post('/', placeController.add);
 router.delete('/:id', placeController.remove);
 
 
-
 module.exports = router

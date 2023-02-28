@@ -3,15 +3,30 @@ const { fileUpload } = require("../services/fileService");
 
 const placeController = {
     getAll: (req, res) => {
+        if(req.query?.category){
+            let query = req.query.category;
+            let categories = query.split(",");
+            placeModel.find({"category" : { $in : categories}},(err,docs) =>{
+                if(err){
+                    res.status(500).json(err);
+                } else if (docs === null){
+                    res.status(404).json({});
+                } else{
+                    res.status(200).json(docs);
+                }
+            })
+        } else {
+            placeModel.find({}, (err, docs) => {
+                if (!err) {
+                    res.json(docs)
+                }
+                else {
+                    res.status(500).json(err)
+                }
+            })
+        }
 
-        placeModel.find({}, (err, docs) => {
-            if (!err) {
-                res.json(docs)
-            }
-            else {
-                res.status(500).json(err)
-            }
-        })
+
 
     },
     getById: (req, res) => {
